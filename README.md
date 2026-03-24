@@ -64,3 +64,28 @@ python -m venv venv
 
 # Instale as dependências
 pip install -r requirements.txt
+
+### 3. Preparação dos Dados (ETL)
+Coloque seu arquivo PDF na pasta `docs/` e execute o script de indexação para gerar o banco vetorial no SSD:
+
+```powershell
+python indexar.py
+
+### 4. Execução do Assistente
+Com o banco vetorial gerado, inicie a interface para começar a interagir com o documento em tempo real:
+
+```powershell
+streamlit run app.py
+
+📂 Estrutura do Repositório
+Nesta seção, detalhamos a organização dos arquivos para facilitar a manutenção e o entendimento da arquitetura do projeto:
+
+app.py: Interface do usuário desenvolvida em Streamlit, contendo a lógica de conversação RAG e o gerenciamento de memória contextual.
+
+indexar.py: Script responsável pelo pipeline de ETL (Extração, Transformação e Carga), realizando o chunking inteligente e a vetorização dos documentos.
+
+docs/: Diretório destinado ao armazenamento dos arquivos PDF originais que servirão como base de conhecimento.
+
+banco_vetorial/: Diretório (ignorado via .gitignore) onde os embeddings do ChromaDB são persistidos localmente.
+
+requirements.txt: Arquivo contendo todas as dependências e versões das bibliotecas para replicação do ambiente.
