@@ -1,91 +1,75 @@
 # 🤖 Local RAG Assistant: Inteligência de Documentos com Llama 3 & LCEL
-
-Este projeto consiste em um assistente de inteligência artificial de alto desempenho, capaz de realizar leitura e análise de documentos PDF de forma 100% local. Utilizando a arquitetura **RAG (Retrieval-Augmented Generation)**, o sistema garante respostas precisas e fundamentadas nos fragmentos do documento fornecido, eliminando alucinações e mantendo a total privacidade dos dados.
-
----
+Este projeto consiste em um assistente de inteligência artificial de alto desempenho, capaz de realizar leitura e análise de documentos PDF de forma 100% local. Utilizando a arquitetura RAG (Retrieval-Augmented Generation), o sistema garante respostas precisas e fundamentadas nos fragmentos do documento fornecido, eliminando alucinações e mantendo a total privacidade dos dados.
 
 ## 📸 Interface do Sistema (Em Execução)
-
-Abaixo, a demonstração do assistente operando em ambiente local. Note a barra lateral detalhando o hardware utilizado e a capacidade do modelo em manter o contexto da conversa, respondendo perguntas subsequentes com base no histórico.
-
 ![Demonstração da Interface do Chatbot RAG Local](imgs/RAG_Funcionando.png)
+
 *(Interface Streamlit com inferência acelerada por hardware)*
 
----
-
 ## 🚀 Diferenciais Técnicos
+- **Privacidade e Soberania de Dados: Execução totalmente local via Ollama.**
 
-- **Privacidade e Soberania de Dados:** Execução totalmente local via Ollama, sem envio de informações para nuvem.
-- **Memória Contextual (Conversational RAG):** Implementação de histórico de chat que permite diálogos fluidos (o bot compreende pronomes e referências a mensagens anteriores).
-- **Arquitetura LCEL (LangChain Expression Language):** Utilização do padrão mais moderno e modular do framework LangChain para a orquestração do pipeline.
-- **Processamento em GPU (CUDA):** Otimizado para inferência acelerada por hardware utilizando os núcleos CUDA da NVIDIA.
+- **Memória Contextual (Conversational RAG): O bot compreende referências a mensagens anteriores.**
 
----
+- **Arquitetura LCEL: Utilização do padrão moderno do framework LangChain.**
+
+- **Processamento em GPU (CUDA): Otimizado para NVIDIA RTX 2060.**
 
 ## 💻 Infraestrutura de Hardware (Lab Local)
+- **GPU: NVIDIA GeForce RTX 2060 (6GB VRAM)**
 
-O projeto foi otimizado para rodar com baixa latência em hardware intermediário, provando a viabilidade técnica de LLMs locais:
+- **CPU: AMD Ryzen 5 3600 (6 Cores / 12 Threads)**
 
-- **GPU:** NVIDIA GeForce RTX 2060 (6GB VRAM) - *Inferência do LLM e Embeddings*
-- **CPU:** AMD Ryzen 5 3600 (6 Cores / 12 Threads) - *Orquestração e ETL*
-- **RAM:** 16GB DDR4 2666MHz - *Gerenciamento de Estado e Vetores*
-- **Storage:** SSD NVMe - *Persistência de alta performance do banco vetorial*
+- **RAM: 16GB DDR4 2666MHz**
 
----
+- **Storage: SSD NVMe**
 
 ## 🛠️ Stack Tecnológica
+- **LLM: Llama 3 (8B Parameters) via Ollama**
 
-- **LLM:** Llama 3 (8B Parameters) via Ollama
-- **Embeddings:** Ollama Embeddings (Llama 3)
-- **Framework:** LangChain v0.3+ (LCEL)
-- **Interface UI:** Streamlit
-- **Banco Vetorial:** ChromaDB
-- **Ambiente:** Python 3.13
+- **Embeddings: Ollama Embeddings**
 
----
+- **Framework: LangChain v0.3+ (LCEL)**
+
+- **Interface UI: Streamlit**
+
+- **Banco Vetorial: ChromaDB**
 
 ## 🔧 Como Executar
-
 ### 1. Pré-requisitos
-- Ter o [Ollama](https://ollama.com/) instalado e o modelo Llama 3 baixado (`ollama run llama3`).
+- Ter o Ollama instalado e o modelo Llama 3 baixado (ollama run llama3).
+
 - Python 3.13 instalado.
 
 ### 2. Configuração do Ambiente
-```powershell
 # Clone o repositório
-git clone [https://github.com/seu-usuario/RAG-Local-Llama3-LangChain.git](https://github.com/seu-usuario/RAG-Local-Llama3-LangChain.git)
+- git clone [https://github.com/seu-usuario/RAG-Local-Llama3-LangChain.git](https://github.com/seu-usuario/RAG-Local-Llama3-LangChain.git)
 
 # Entre na pasta
-cd RAG-Local-Llama3-LangChain
+- cd RAG-Local-Llama3-LangChain
 
 # Crie e ative o ambiente virtual
-python -m venv venv
-.\venv\Scripts\activate
+- python -m venv venv
+- .\venv\Scripts\activate
 
 # Instale as dependências
-pip install -r requirements.txt
+- pip install -r requirements.txt
 
 ### 3. Preparação dos Dados (ETL)
-Coloque seu arquivo PDF na pasta `docs/` e execute o script de indexação para gerar o banco vetorial no SSD:
-
-```powershell
-python indexar.py
+# Coloque seu arquivo PDF na pasta docs/ e execute o script de indexação:
+- python indexar.py
 
 ### 4. Execução do Assistente
-Com o banco vetorial gerado, inicie a interface para começar a interagir com o documento em tempo real:
+# Com o banco vetorial gerado, inicie a interface:
+- streamlit run app.py
 
-```powershell
-streamlit run app.py
+## 📂 Estrutura do Repositório
+- **app.py: Interface do usuário e lógica de conversação RAG.**
 
-📂 Estrutura do Repositório
-Nesta seção, detalhamos a organização dos arquivos para facilitar a manutenção e o entendimento da arquitetura do projeto:
+- **indexar.py: Script de ETL (carregamento e vetorização).**
 
-app.py: Interface do usuário desenvolvida em Streamlit, contendo a lógica de conversação RAG e o gerenciamento de memória contextual.
+- **docs/: Diretório para os arquivos PDF originais.**
 
-indexar.py: Script responsável pelo pipeline de ETL (Extração, Transformação e Carga), realizando o chunking inteligente e a vetorização dos documentos.
+- **banco_vetorial/: Pasta onde os embeddings são persistidos localmente.**
 
-docs/: Diretório destinado ao armazenamento dos arquivos PDF originais que servirão como base de conhecimento.
-
-banco_vetorial/: Diretório (ignorado via .gitignore) onde os embeddings do ChromaDB são persistidos localmente.
-
-requirements.txt: Arquivo contendo todas as dependências e versões das bibliotecas para replicação do ambiente.
+- **requirements.txt: Dependências do projeto.**
