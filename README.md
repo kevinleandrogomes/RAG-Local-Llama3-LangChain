@@ -4,7 +4,7 @@
 ## 📸 Interface do Sistema (Em Execução)
 ![Demonstração da Interface do Chatbot RAG Local](imgs/RAG_Funcionando.png)
 
-**(Interface Streamlit com inferência acelerada por hardware)**
+> **Destaque do Print:** Exemplo de análise do artigo fundamental *"Attention Is All You Need"*, onde o assistente extrai corretamente os autores e conceitos-chave da introdução, mantendo a fidelidade total ao documento original.
 
 ## 🚀 Diferenciais Técnicos
 - **Privacidade e Soberania de Dados: Execução totalmente local via Ollama.**
